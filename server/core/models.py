@@ -12,13 +12,14 @@ class User(AbstractUser):
     last_level_updated_time = models.DateTimeField(auto_now=True)
     college = models.CharField(max_length=500,null = True)
     promo_used = models.BooleanField(default=False)
-
+    is_rigged = models.BooleanField(default=False)
+    machine_used = models.IntegerField(default=0)
     # Currency
     paidHintTaken = models.BooleanField(default=False)
     keys = models.PositiveIntegerField(default = 2)
 
 
-    REQUIRED_FIELDS = ['phone', 'first_name', 'last_name', 'email', 'college', 'keys', 'current_level', 'paidHintTaken']
+    REQUIRED_FIELDS = ['phone', 'first_name', 'last_name', 'email', 'college', 'keys', 'current_level', 'paidHintTaken', 'is_rigged', 'machine_used']
 
 
 
@@ -41,6 +42,7 @@ class Question(models.Model):
 
     # Confidential
     answer = models.CharField(max_length=1023, default="")
+    rigword = models.CharField(max_length=1023, default="")
     keywords = models.TextField(default='[]',blank=True)
     paidHint = models.TextField(default="<Extra hint>")
 
@@ -61,3 +63,20 @@ class Timer(models.Model):
     promo_code_active = models.BooleanField(default=False)
     promocode = models.CharField(max_length=100, default="NTH22")
     add_keys_interval_min = models.IntegerField(default=120)
+
+class Feedback(models.Model):
+    name = models.CharField(max_length=100)
+    feedback = models.TextField()
+
+    def __str__(self):
+        return self.name
+
+class AnswerHistory(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    question = models.ForeignKey(Question, on_delete=models.CASCADE, null=True)
+    answers = models.JSONField(default=list, null=True, blank=True)
+    last_updated = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.user.username + " answered " + self.question.title
+    

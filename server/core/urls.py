@@ -19,9 +19,11 @@ from .views import *
 urlpatterns = [
     # path('users/', UserViewSet.as_view(actions={'get': 'list', 'post': 'create'}), name = 'list-create-users'),
     # path('users/<int:pk>', UserViewSet.as_view(actions={'get': 'retrieve'}), name = 'retrieve-user'),
-    path('questions/<int:level>', QuestionDetail.as_view(), name = 'retrieve-question'), #change URL
+    # path('questions/<int:level>', QuestionDetail.as_view(), name = 'retrieve-question'), #change URL
     path('userquestion/<slug:user_ans>', QuestionDetail.as_view(), name = 'check_user_ans'), #change URL
     path('leaderboard/', LeaderboardView.as_view(), name = 'leaderboard'),
     path('question/extra-hint/', ExtraHintView.as_view(), name = 'extrahint'),
     path('timer/', TimerView.as_view(), name = 'timer'),
+    path('auth/feedback/', FeedbackView.as_view(), name = 'feedback'),
+    path('slotmachine/', SlotMachine.as_view(), name = 'slotmachine'),
 ]

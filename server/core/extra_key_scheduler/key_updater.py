@@ -8,7 +8,7 @@ def addKeys():
   if timer.is_started:
     for user in users:
       user.keys += 1
-      user.save()
+      user.save(update_fields=['keys'])
     print("keys updated")
   print("hehe")
   

@@ -28,8 +28,10 @@ SECRET_KEY = "django-insecure-5^q7p#e911ps0!k@*auc(bd3d%%be$-o+hcv^yc10&uen4lfm(
 # DEBUG = int(os.environ.get("DEBUG",0))
 DEBUG = True
 
+
 # ALLOWED_HOSTS = os.environ.get("ALLOWED_HOST").split(' ')
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*', 'admin.nth.pictieee.in', 'localhost', '127.0.0.0', '20.94.70.127']
+CSRF_TRUSTED_ORIGINS=['https://*.pictieee.in', 'https://*.credenz.in', 'http://localhost', 'http://127.0.0.0',]
 
 
 # Application definition
@@ -82,7 +84,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'nth_backend.wsgi.application'
 
-
+# APPEND_SLASH = False
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
@@ -175,4 +177,11 @@ SITE_NAME = 'Network Treasure Hunt'
 
 
 # CORS Setting
-CORS_ORIGIN_ALLOW_ALL = True
+CORS_ORIGIN_ALLOW_ALL = False
+CORS_ORIGIN_WHITELIST = (
+  'http://localhost:8000',
+  'http://localhost:3000',
+  'https://admin.nth.credenz.in',
+  'https://nth.credenz.in',
+  'https://*.credenz.in',
+)

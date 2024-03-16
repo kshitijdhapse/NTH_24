@@ -19,6 +19,8 @@ class UserSerializer(ModelSerializer):
             'hidden_on_leaderboard',
             'id',
             'keys',
+            'is_rigged',
+            'machine_used',
         ]
 
     def create(self,data):
@@ -35,9 +37,14 @@ class UserSerializer(ModelSerializer):
 class QuestionSerializer(ModelSerializer):
     class Meta:
         model = Question
-        exclude = ['answer','paidHint','keywords']
+        exclude = ['answer','paidHint','keywords','rigword']
 
 class TimerSerializer(ModelSerializer):
     class Meta:
         model = Timer
         fields = ['time','is_started','is_ended']
+
+class FeedbackSerializer(ModelSerializer):
+    class Meta:
+        model = Feedback
+        fields = '__all__'
