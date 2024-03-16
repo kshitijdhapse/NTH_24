@@ -37,6 +37,8 @@ class Question(models.Model):
     tooltip = models.CharField(max_length=1023, null=True, default=None)
     hints = models.TextField(default="<hints>")
     hintCost = models.IntegerField(null = True, blank=True)
+    righints = models.TextField(default='[]',blank=True)
+    
     # gif = models.URLField(max_length=1023, null=True, default=None)
     # vid = models.URLField(max_length=1023, null=True, default=None)
 

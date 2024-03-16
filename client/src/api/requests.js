@@ -16,6 +16,7 @@ const extrahint= () => backend.post( `/question/extra-hint/`,null, {headers: { "
 const leaderboard = () => backend.get( `/leaderboard/`, {headers: { "content-type": "application/json"}} );
 const time=() => backend.get( `/timer/`, {headers: { "content-type": "application/json"}} );
 const feedback = (data) => backend.post( `/auth/feedback/`, data,{headers: { "content-type": "application/json" }} );
+const slotmachine =() => backend.post(`/slotmachine/`,null,{headers: { "content-type": "application/json", Authorization:`Token ${localStorage.getItem("auth-token")}` }});
 const Requests = {
     login,
     register,
@@ -24,6 +25,7 @@ const Requests = {
     extrahint,
     leaderboard,
     time,
-    feedback
+    feedback,
+    slotmachine,
   };
   export default Requests;

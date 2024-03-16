@@ -4,6 +4,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import ContactModal from "./Modals/ContactModal";
 import ProfileModal from "./Modals/ProfileModal";
 import HintModal from "./Modals/HintModal";
+import SlotMachineModal from "./Modals/SlotMachineModal";
 import { Container, Row, Col } from "react-bootstrap";
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
@@ -226,6 +227,10 @@ const Question = (props) => {
                   <Col >
                     <div class={`view-modal ${imageCnt === 4 ? 'cnt4' : 'cnt1'}`}>
                       
+                      <OverlayTrigger placement={'left'} overlay={<Tooltip id={'tooltip-left'}> <strong>Slot Machine</strong></Tooltip>}>
+                        <button onClick={() => openModal(5)} class={id === 5 ? "btnisactive ms-2" : "btnisunactive ms-2 "} ><i class="fas fa-lightbulb-on fa-2x side-icons"></i></button>
+                      </OverlayTrigger>
+
                       <OverlayTrigger placement={'left'} overlay={<Tooltip id={'tooltip-left'}> <strong>Hints</strong></Tooltip>}>
                         <button onClick={() => openModal(3)} class={id === 3 ? "btnisactive ms-2" : "btnisunactive ms-2 "} ><i class="fas fa-lightbulb-on fa-2x side-icons"></i></button>
                       </OverlayTrigger>
@@ -244,7 +249,8 @@ const Question = (props) => {
                         id === 1 ? <ContactModal show={id === 1 ? true : false} onHide={() => closeModal()} />
                           : id === 2 ? <ProfileModal show={id === 2 ? true : false} onHide={() => closeModal()} data={{ username: data.username, phone: data.phone, current_level: data.current_level }} />
                             : id === 3 ? <HintModal show={id === 3 ? true : false} onHide={() => closeModal()} data={{ hints: data.hints, paidHintTaken: data.paidHintTaken, keys: data.keys, paidHint: data.paidHint, level: data.level, hintCost: data.hintCost, dataUpdate: fetchData }} toast={props.toast} id={id} />
-                              : <></>
+                              : id === 5 ? <SlotMachineModal show={id === 5 ? true : false} onHide={() => closeModal()} data={{ hints: data.hints, paidHintTaken: data.paidHintTaken, keys: data.keys, paidHint: data.paidHint, level: data.level, hintCost: data.hintCost, dataUpdate: fetchData }} toast={props.toast} id={id} />
+                                : <></>
                       }
                     </div>
 
