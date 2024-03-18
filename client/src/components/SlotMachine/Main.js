@@ -3,22 +3,32 @@ import Spinner from "./Spinner";
 import WinningSound from "./WinningSound";
 import React from 'react';
 import './slotmachine.css'
+import Requests from "../../api/requests";
 class App1 extends React.Component {
     constructor(props) {
       super(props);
       this.state = {
-        winner: null
+        results  : [[1,5,9]]
       }
       this.finishHandler = this.finishHandler.bind(this)
       this.handleClick = this.handleClick.bind(this);
+	console.log(this.state.results)
+      
     }  
   
-    handleClick() { 
-      this.setState({ winner: null });
+    async handleClick() { 
+    //   this.setState({ winner: null });
       this.emptyArray();
+	const results1 = await Requests.slotmachine();
+	console.log(results1)
+      this.setState({results:results1});
       this._child1.forceUpdateHandler();
       this._child2.forceUpdateHandler();
       this._child3.forceUpdateHandler();
+
+      
+      // Store the results
+    //   this.results.push(results);
     }
   
     static loser = [
@@ -40,10 +50,10 @@ class App1 extends React.Component {
       App1.matches.push(value);  
   
       if (App1.matches.length === 3) {
-        const { winner } = this.state;
+        // const { winner } = this.state;
         const first = App1.matches[0];
         let results = App1.matches.every(match => match === first)
-        this.setState({ winner: results });
+        // this.setState({ winner: results });
       }
     }
   
@@ -52,34 +62,36 @@ class App1 extends React.Component {
     }
   
     render() {
-      const { winner } = this.state;
+    //   const { winner } = this.state;
       const getLoser = () => {       
         return App1.loser[Math.floor(Math.random()*App1.loser.length)]
       }
       let repeatButton = null;
-      let winningSound = null;
+    //   let winningSound = null;
   
-      if (winner !== null) {
+      if (1) {
         repeatButton = <RepeatButton onClick={this.handleClick} />
       }
       
-      if (winner) {
-        winningSound = <WinningSound />
-      }
+    //   if (winner) {
+    //     winningSound = <WinningSound />
+    //   }
   
       return (
         <div>
-          {winningSound}
+          {/* {winningSound}
           <h1 style={{ color: 'white'}}>
             <span>{winner === null ? 'Waiting…' : winner ? '🤑 Pure skill! 🤑' : getLoser()}</span>
-          </h1>
+          </h1> */}
   
-          <div className={`spinner-container`}>
-            <Spinner onFinish={this.finishHandler} ref={(child) => { this._child1 = child; }} timer="1000" />
-            <Spinner onFinish={this.finishHandler} ref={(child) => { this._child2 = child; }} timer="1400" />
-            <Spinner onFinish={this.finishHandler} ref={(child) => { this._child3 = child; }} timer="2200" />
-            <div className="gradient-fade"></div>
-          </div>
+          	<div className={`spinner-container`}>
+  				<Spinner onFinish={this.finishHandler} ref={(child) => { this._child1 = child; }} timer="1000" pos={this.state.results[0][0]} />
+  				<Spinner onFinish={this.finishHandler} ref={(child) => { this._child2 = child; }} timer="1000" pos={this.state.results[0][1]} />
+  				<Spinner onFinish={this.finishHandler} ref={(child) => { this._child3 = child; }} timer="1000" pos={this.state.results[0][2]} />
+  				<div className="gradient-fade"></div>
+			</div>
+
+
           {repeatButton}          
         </div>
       );

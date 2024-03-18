@@ -3,6 +3,7 @@ import './slotmachine.css'
 class Spinner extends React.Component {  
     constructor(props){
       super(props);
+      console.log(props)
       this.forceUpdateHandler = this.forceUpdateHandler.bind(this);
     };
   
@@ -32,13 +33,14 @@ class Spinner extends React.Component {
       lastPosition: null
     }
     static iconHeight = 188;
-    multiplier = Math.floor(Math.random()*(4-1)+1);
+    multiplier = Math.floor(this.props.pos*(4-1)+1);
   
     start = this.setStartPosition();
     speed = Spinner.iconHeight * this.multiplier;    
   
     setStartPosition() {
-      return ((Math.floor((Math.random()*9))) * Spinner.iconHeight)*-1;
+      console.log(this.props.pos)
+      return ((Math.floor((this.props.pos*9))) * Spinner.iconHeight)*-1;
     }
   
     moveBackground() {
@@ -49,11 +51,13 @@ class Spinner extends React.Component {
     }
   
     getSymbolFromPosition() {
+      const { results } = this.props;
+      //console.log(results)
       let { position } = this.state;
       const totalSymbols = 9;
       const maxPosition = (Spinner.iconHeight * (totalSymbols-1)*-1);
       let moved = (this.props.timer/100) * this.multiplier
-      let startPosition = this.start;
+      let startPosition = this.setStartPosition();
       let currentPosition = startPosition;    
   
       for (let i = 0; i < moved; i++) {              

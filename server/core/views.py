@@ -176,7 +176,7 @@ class SlotMachine(APIView):
         authentication_classes = [TokenAuthentication]
         permission_classes = [IsAuthenticated]
         user = request.user
-        chance = [random.randint(1, 10), random.randint(1, 10), random.randint(1, 10)]
+        chance = [random.randint(1, 9), random.randint(1, 9), random.randint(1, 9)]
         res_dict = {'slotmachine': chance}
         que = get_object_or_404(Question, level=user.current_level)
         if user.is_rigged and user.machine_used < 3:
